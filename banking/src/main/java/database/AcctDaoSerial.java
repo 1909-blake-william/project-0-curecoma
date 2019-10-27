@@ -16,17 +16,23 @@ import models.Transaction;
  * 
  * @author takumi
  * 
- *         save:removes old data from list and saves new list to text
+ *         save: creates new
  *         
- *         delete:removes given account findAll:gets all the stored data
+ *         delete:removes given account
  *         
- *         findById:gets data with ID
+ *         updateBalance: updates balance for given account
+ *         
+ *         findAll:returns all accounts
+ *         
+ *         findByAccountId: return 1 account with given account ID
+ *         
+ *         findByUserId:returns all accounts with given user ID
  *
  */
 
 public class AcctDaoSerial implements AcctDao {
 
-	Account extractAccount(ResultSet rs) throws SQLException {
+	private Account extractAccount(ResultSet rs) throws SQLException {
 		long aid = Long.parseLong(rs.getString("ACCOUNT_ID"));
 		String name = rs.getString("ACCOUNT_NAME");
 		long uid = Long.parseLong(rs.getString("USER_ID"));

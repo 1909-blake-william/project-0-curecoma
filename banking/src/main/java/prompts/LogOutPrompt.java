@@ -3,7 +3,11 @@ package prompts;
 import java.util.Scanner;
 
 import banking.BankingApplicationDriver;
-
+/**
+ * 
+ * logs out user
+ *
+ */
 public class LogOutPrompt implements Prompt {
 
 	@SuppressWarnings("resource")

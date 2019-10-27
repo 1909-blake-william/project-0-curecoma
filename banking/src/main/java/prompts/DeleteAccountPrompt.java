@@ -12,11 +12,10 @@ import models.Account;
  * @author takumi
  *
  *         deletes account specified
- *
- * @undecided should I remove the account from the database or should I just
- *            disconnect it from the accout?
+ *         
+ *         deleting accounts are only allowed when accounts are empty
  * 
- * @CurrentImplementation it currently deletes the account from the database.
+ * @todo make it so that the account is only disconnected instead of deleted
  */
 
 public class DeleteAccountPrompt implements Prompt {

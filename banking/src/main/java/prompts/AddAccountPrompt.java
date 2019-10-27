@@ -6,7 +6,12 @@ import java.util.Scanner;
 import banking.BankingApplicationDriver;
 import database.AcctDao;
 import models.Account;
-
+/**
+ * 
+ * Creates new non-admin user
+ * Initiates when name input for login doesn't exist in database
+ *
+ */
 public class AddAccountPrompt implements Prompt {
 	private AcctDao acctDao = AcctDao.currentImplementation;
 	private ArrayList<Account> myActList = new ArrayList<Account>();

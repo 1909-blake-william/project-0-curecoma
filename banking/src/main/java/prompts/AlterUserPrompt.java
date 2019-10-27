@@ -6,13 +6,11 @@ import database.UserDao;
 import models.User;
 
 /**
- * 
- * @author takumi
  *
  *
  *         grant/removes admin privilage from user
- *
- *         deletes user if not admin.
+ *         
+ *         can delete user if not admin.
  *
  *
  */

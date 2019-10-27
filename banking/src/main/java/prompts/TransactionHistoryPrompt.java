@@ -5,7 +5,12 @@ import database.AcctDao;
 import database.TransDao;
 import models.Account;
 import models.Transaction;
-
+/**
+ * 
+ * @author takumi
+ *
+ * displays all transactions for each account connected to a user
+ */
 public class TransactionHistoryPrompt implements Prompt {
 
 	Long myID = BankingApplicationDriver.userData.getId();

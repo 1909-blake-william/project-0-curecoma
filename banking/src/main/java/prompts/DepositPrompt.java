@@ -12,14 +12,9 @@ import models.Transaction;
 import models.User;
 
 /**
- * Deposit to an account and create new transaction
  * 
- * updates: transDao, acctDao, myActList
+ * Increases net worth of user and balance of chosen account by input amount
  * 
- * removes old account from acctDao, myActList and then adds new account with
- * updated cash
- * 
- * add transaction ID to acctDao, myActList
  */
 
 public class DepositPrompt implements Prompt {

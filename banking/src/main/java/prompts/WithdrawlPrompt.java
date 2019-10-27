@@ -11,6 +11,12 @@ import models.Account;
 import models.Transaction;
 import models.User;
 
+/**
+ * 
+ * Decrease net worth of user and balance of chosen account by input amount
+ * 
+ */
+
 public class WithdrawlPrompt implements Prompt {
 
 	Long myID = BankingApplicationDriver.userData.getId();

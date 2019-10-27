@@ -9,6 +9,12 @@ import database.TransDao;
 import models.Account;
 import models.Transaction;
 
+/**
+ * 
+ * Transfers cash from one account to another account
+ *
+ */
+
 public class TransferPrompt implements Prompt {
 
 	private TransDao transDao = TransDao.currentImplementation;
