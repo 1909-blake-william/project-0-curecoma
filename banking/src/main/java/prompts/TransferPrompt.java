@@ -27,8 +27,10 @@ public class TransferPrompt implements Prompt {
 		System.out.println(">>List of your accounts:");
 
 		acctDao.findByUserId(myID).forEach((Account a) -> {
-			myActList.add(a);
-			System.out.println(a.toString());
+			if (a.isIsactive()) {
+				myActList.add(a);
+				System.out.println(a.toString());
+			}
 		});
 
 		System.out.println(">>Input Account name you want to transfer from.");

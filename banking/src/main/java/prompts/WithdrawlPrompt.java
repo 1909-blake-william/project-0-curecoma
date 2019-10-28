@@ -29,7 +29,9 @@ public class WithdrawlPrompt implements Prompt {
 	public Prompt run() {
 		User me = userDao.findById(myID);
 		acctDao.findByUserId(myID).forEach((Account a) -> {
-			myActList.add(a);
+			if (a.isIsactive()) {
+				myActList.add(a);
+			}
 		});
 		System.out.println(">>Which Account do you want to withdraw from?");
 		for (int i = 0; i < myActList.size(); i++) {
@@ -78,7 +80,7 @@ public class WithdrawlPrompt implements Prompt {
 		transDao.save(t);
 		acctDao.updateBalance(dealWith, t);
 		userDao.updateNetworth(me, t);
-		System.out.println(">>Withdrew $" + ((-1.0)*cashInput));
+		System.out.println(">>Withdrew $" + ((-1.0) * cashInput));
 		System.out.println(">>Returning to main menu.");
 
 		return new MainMenuPrompt();

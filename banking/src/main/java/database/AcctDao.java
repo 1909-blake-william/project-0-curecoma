@@ -20,4 +20,6 @@ public interface AcctDao {
 
 	void delete(Account a);
 
+	void delete_terminal(Account a);
+
 }

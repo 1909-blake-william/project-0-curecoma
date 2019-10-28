@@ -6,10 +6,11 @@ import java.util.Scanner;
 import banking.BankingApplicationDriver;
 import database.AcctDao;
 import models.Account;
+
 /**
  * 
- * Creates new non-admin user
- * Initiates when name input for login doesn't exist in database
+ * Creates new non-admin user Initiates when name input for login doesn't exist
+ * in database
  *
  */
 public class AddAccountPrompt implements Prompt {
@@ -19,7 +20,9 @@ public class AddAccountPrompt implements Prompt {
 
 	public Prompt run() {
 		acctDao.findByUserId(myID).forEach((Account a) -> {
-			myActList.add(a);
+			if (a.isIsactive()) {
+				myActList.add(a);
+			}
 		});
 
 		System.out.println(">>What is the name of the account you want to add?");

@@ -12,7 +12,7 @@ import models.Account;
  * @author takumi
  *
  *         deletes account specified
- *         
+ * 
  *         deleting accounts are only allowed when accounts are empty
  * 
  * @todo make it so that the account is only disconnected instead of deleted
@@ -24,12 +24,12 @@ public class DeleteAccountPrompt implements Prompt {
 	Long myID = BankingApplicationDriver.userData.getId();
 
 	public Prompt run() {
-		acctDao.findAll().forEach((Account a) -> {
-			if (a.getUserID() == myID) {
+		acctDao.findByUserId(myID).forEach((Account a) -> {
+			if (a.isIsactive()) {
 				myActList.add(a);
 			}
 		});
-		
+
 		System.out.println(">>Which Account do you want to delete?");
 		myActList.forEach((Account a) -> {
 			System.out.println(a.toString());

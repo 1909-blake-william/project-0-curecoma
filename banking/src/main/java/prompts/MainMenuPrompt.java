@@ -32,11 +32,11 @@ public class MainMenuPrompt implements Prompt {
 		if (BankingApplicationDriver.loggedIn == false) {
 			return new LogInPrompt();
 		}
-		
+
 		myID = BankingApplicationDriver.userData.getId();
-		
+
 		acctDao.findAll().forEach((Account a) -> {
-			if (a.getUserID() == myID) {
+			if (a.getUserID() == myID && a.isIsactive()) {
 				myActList.add(a);
 			}
 		});
@@ -53,7 +53,7 @@ public class MainMenuPrompt implements Prompt {
 			System.out.println("Enter 1 to deposit cash");
 			System.out.println("Enter 2 to withdraw cash");
 			System.out.println("Enter 3 to transfer cash");
-			
+
 			System.out.println("Enter 4 to view accounts");
 			System.out.println("Enter 5 to transaction history of an account");
 			System.out.println("Enter 6 to add accounts");
@@ -76,8 +76,10 @@ public class MainMenuPrompt implements Prompt {
 			case (3):
 				return new TransferPrompt();
 			case (4):
-				myActList.forEach((Account u) -> {
-					System.out.println(u.toString());
+				myActList.forEach((Account a) -> {
+					if (a.isIsactive()) {
+						System.out.println(a.toString());
+					}
 				});
 				return new MainMenuPrompt();
 			case (5):
@@ -93,7 +95,7 @@ public class MainMenuPrompt implements Prompt {
 				return new MainMenuPrompt();
 			case (92):
 				acctDao.findAll().forEach((Account u) -> {
-					System.out.println(u.toString());
+					System.out.println(u.toStringAdmin());
 				});
 				return new MainMenuPrompt();
 			case (93):
@@ -133,8 +135,10 @@ public class MainMenuPrompt implements Prompt {
 			case (3):
 				return new TransferPrompt();
 			case (4):
-				myActList.forEach((Account u) -> {
-					System.out.println(u.toString());
+				myActList.forEach((Account a) -> {
+					if (a.isIsactive()) {
+						System.out.println(a.toString());
+					}
 				});
 				return new MainMenuPrompt();
 			case (5):

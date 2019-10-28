@@ -19,8 +19,8 @@ public class TransactionHistoryPrompt implements Prompt {
 
 	@Override
 	public Prompt run() {
-		for (Account a : acctDao.findAll()) {
-			if (a.getUserID() == myID) {
+		for (Account a : acctDao.findByUserId(myID)) {
+			if (a.isIsactive()) {
 				System.out.println("Transactions for " + a.getAccountName() + ":");
 				for(Transaction t:transDao.findAll()) {
 					if(t.getAccountID()==a.getAccountID()) {

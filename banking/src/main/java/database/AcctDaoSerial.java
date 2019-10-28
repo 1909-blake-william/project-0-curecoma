@@ -17,15 +17,15 @@ import models.Transaction;
  * @author takumi
  * 
  *         save: creates new
- *         
+ * 
  *         delete:removes given account
- *         
+ * 
  *         updateBalance: updates balance for given account
- *         
+ * 
  *         findAll:returns all accounts
- *         
+ * 
  *         findByAccountId: return 1 account with given account ID
- *         
+ * 
  *         findByUserId:returns all accounts with given user ID
  *
  */
@@ -37,18 +37,24 @@ public class AcctDaoSerial implements AcctDao {
 		String name = rs.getString("ACCOUNT_NAME");
 		long uid = Long.parseLong(rs.getString("USER_ID"));
 		double ci = Double.parseDouble(rs.getString("BALANCE"));
-		return new Account(aid, name, uid, ci);
+		int ia = Integer.parseInt(rs.getString("IS_ACTIVE"));
+		return new Account(aid, name, uid, ci, ia);
 	}
 
 	@Override
 	public long save(Account a) {
 		try (Connection c = ConnectionUtil.getConnection()) {
-			String str = "INSERT INTO bank_accounts (account_id, account_name, balance, user_id) VALUES (?,?,?,?)";
+			String str = "INSERT INTO bank_accounts (account_id, account_name, balance, user_id, is_active) VALUES (?,?,?,?,?)";
 			PreparedStatement ps = c.prepareStatement(str);
 			ps.setString(1, "" + a.getAccountID());
 			ps.setString(2, "" + a.getAccountName());
 			ps.setString(3, "" + a.getCash());
 			ps.setString(4, "" + a.getUserID());
+			if (a.isIsactive()) {
+				ps.setString(5, "" + 1);
+			} else {
+				ps.setString(5, "" + 0);
+			}
 
 			ps.executeUpdate();
 		} catch (SQLException e) {
@@ -73,7 +79,19 @@ public class AcctDaoSerial implements AcctDao {
 	}
 
 	@Override
-	public void delete(Account a) {
+	public void delete(Account a) {// disable
+		try (Connection c = ConnectionUtil.getConnection()) {
+			String str = "UPDATE bank_accounts SET is_active = 0 WHERE account_id = ?";
+			PreparedStatement ps = c.prepareStatement(str);
+			ps.setString(1, "" + a.getAccountID());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void delete_terminal(Account a) {// delete
 		try (Connection c = ConnectionUtil.getConnection()) {
 			String str = "DELETE FROM bank_accounts WHERE account_id = ?;";
 			PreparedStatement ps = c.prepareStatement(str);
