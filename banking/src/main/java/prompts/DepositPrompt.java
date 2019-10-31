@@ -57,6 +57,9 @@ public class DepositPrompt implements Prompt {
 		double cashInput = 0;
 		try {
 			cashInput = Double.parseDouble(scan.nextLine());
+			if(cashInput<0) {
+				throw new Exception();
+			}
 		} catch (Exception e) {
 			System.out.println(">>Invalid input.");
 			System.out.println(">>Returning to main menu.");

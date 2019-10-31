@@ -3,7 +3,9 @@ package prompts;
 import java.util.Scanner;
 
 import banking.BankingApplicationDriver;
+import database.AcctDao;
 import database.UserDao;
+import models.Account;
 import models.User;
 
 /**
@@ -18,6 +20,7 @@ import models.User;
 
 public class LogInPrompt implements Prompt {
 	private UserDao userDao = UserDao.currentImplementation;
+	private AcctDao acctDao = AcctDao.currentImplementation;
 
 	public Prompt run() {
 		@SuppressWarnings("resource")
@@ -36,6 +39,8 @@ public class LogInPrompt implements Prompt {
 				String newPW = scan.nextLine();
 				User newUser = new User(userName, newPW, 0);
 				userDao.save(newUser);
+				acctDao.save(new Account(newUser.getId(), "Checking", 0.0));
+				acctDao.save(new Account(newUser.getId(), "Saving", 0.0));
 				BankingApplicationDriver.loggedIn = true;
 				BankingApplicationDriver.userData = newUser;
 				System.out.println(">>Account created successfully:");

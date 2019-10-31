@@ -72,6 +72,9 @@ public class TransferPrompt implements Prompt {
 		double cashInput = 0;
 		try {
 			cashInput = Double.parseDouble(scan.nextLine());
+			if(cashInput<0) {
+				throw new Exception();
+			}
 		} catch (Exception e) {
 			System.out.println(">>Invalid input.");
 			System.out.println(">>Returning to main menu.");
@@ -79,7 +82,13 @@ public class TransferPrompt implements Prompt {
 		}
 
 		cashInput = (double) ((int) Math.floor(cashInput * 100)) / 100.0;
-
+		
+		if (cashInput > from.getCash()) {
+			System.out.println(">>Input exceeds current balance.");
+			System.out.println(">>Returning to main menu.");
+			return new MainMenuPrompt();
+		}
+		
 		Transaction t = new Transaction(from.getAccountID(), ((-1.0) * cashInput));
 		Transaction u = new Transaction(to.getAccountID(), cashInput);
 		transDao.save(t);
