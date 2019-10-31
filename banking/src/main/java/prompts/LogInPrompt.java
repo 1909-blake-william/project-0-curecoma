@@ -25,8 +25,10 @@ public class LogInPrompt implements Prompt {
 		System.out.println(">>Log in:");
 		System.out.println(">>Type user name:");
 		String userName = scan.nextLine();
-		
-		if (userDao.findByName(userName)==null) {
+
+		try {
+			userDao.findByName(userName);
+		} catch (Exception e) {
 			System.out.println(">>Username not found\n>>Do you want to register as a new user?.");
 			System.out.println(">>Type 1 to do so, 0 if not.");
 			String responce = scan.nextLine();
@@ -38,7 +40,6 @@ public class LogInPrompt implements Prompt {
 				BankingApplicationDriver.loggedIn = true;
 				BankingApplicationDriver.userData = newUser;
 				System.out.println(">>Account created successfully:");
-
 			}
 			return new MainMenuPrompt();
 		}
@@ -46,15 +47,17 @@ public class LogInPrompt implements Prompt {
 		System.out.println(">>Type password:");
 		String passWord = scan.nextLine();
 
-		if (userDao.findByUsernameAndPassword(userName, passWord)!=null) {
-			BankingApplicationDriver.loggedIn = true;
-			BankingApplicationDriver.userData = userDao.findByUsernameAndPassword(userName, passWord);
-			System.out.println(">>Login Successful:");
+		try {
+			userDao.findByUsernameAndPassword(userName, passWord);
+		} catch (Exception e) {
+			System.out.println(">>Password incorrect");
 			return new MainMenuPrompt();
 		}
-
-		System.out.println(">>Password incorrect");
+		BankingApplicationDriver.loggedIn = true;
+		BankingApplicationDriver.userData = userDao.findByUsernameAndPassword(userName, passWord);
+		System.out.println(">>Login Successful:");
 		return new MainMenuPrompt();
+
 	}
 
 }
