@@ -24,6 +24,7 @@ public class LogInPrompt implements Prompt {
 		Scanner scan = new Scanner(System.in);
 		System.out.println(">>Log in:");
 		System.out.println(">>Type user name:");
+		System.out.println(">>If you don't have an account,\n>>type desired user name to create new account:");
 		String userName = scan.nextLine();
 		
 		if (userDao.findByName(userName)==null) {
