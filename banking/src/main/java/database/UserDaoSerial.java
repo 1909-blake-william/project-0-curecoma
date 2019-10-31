@@ -26,11 +26,9 @@ public class UserDaoSerial implements UserDao {
 			isadmin = Integer.parseInt(rs.getString("IS_ADMIN"));
 			nw = Double.parseDouble(rs.getString("NETWORTH"));
 		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return null;
 		}
 		return new User(id, name, password, isadmin, nw);
 	}
@@ -93,8 +91,6 @@ public class UserDaoSerial implements UserDao {
 
 			return user;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			return null;
 		}
 	}
@@ -142,6 +138,22 @@ public class UserDaoSerial implements UserDao {
 		}
 	}
 
+	public void updateAdmin(User u, boolean b) {
+		try (Connection c = ConnectionUtil.getConnection()) {
+			String str = "UPDATE bank_users SET is_admin = ? WHERE user_id = ?";
+			PreparedStatement ps = c.prepareStatement(str);
+			if (b) {
+				ps.setString(1, "" + 1);
+			} else {
+				ps.setString(1, "" + 0);
+			}
+			ps.setString(2, "" + u.getId());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public User findByUsernameAndPassword(String username, String password) {
 		try (Connection c = ConnectionUtil.getConnection()) {
@@ -157,8 +169,6 @@ public class UserDaoSerial implements UserDao {
 
 			return user;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			return null;
 		}
 	}

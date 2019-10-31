@@ -72,13 +72,11 @@ public class AlterUserPrompt implements Prompt {
 
 		switch (choice) {
 		case (1):
-			user.setAdmin(true);
-			userDao.save(user);
+			userDao.updateAdmin(user, true);
 			System.out.println(">>Privilige set.");
 			break;
 		case (2):
-			user.setAdmin(false);
-			userDao.save(user);
+			userDao.updateAdmin(user, false);
 			System.out.println(">>Privilige set.");
 			break;
 		case (3):

@@ -32,4 +32,5 @@ public interface UserDao {
 
 	void updateNetworth(User me, Transaction t);
 	
+	public void updateAdmin(User u, boolean b);
 }
